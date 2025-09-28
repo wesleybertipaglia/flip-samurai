@@ -60,7 +60,7 @@ export default function CollectionEditPage() {
     const { getCollectionById, updateCollection, addCardToCollection, deleteCardFromCollection, isInitialized } = useCollections();
     const { toast } = useToast();
 
-    const originalCollection = useMemo(() => getCollectionById(id), [id, getCollectionById]);
+    const originalCollection = useMemo(() => getCollectionById(id ?? ''), [id, getCollectionById]);
     const [collection, setCollection] = useState<Collection | undefined>(originalCollection);
     const [isAddCardOpen, setIsAddCardOpen] = useState(false);
     const [isEditCardOpen, setIsEditCardOpen] = useState(false);
@@ -149,7 +149,7 @@ export default function CollectionEditPage() {
 
     const handleUpdateDetails: SubmitHandler<EditCollectionSchema> = (data) => {
         if (collection) {
-            const updatedTags = data.tags.split(',').map((tag) => tag.trim()).filter((tag) => tag.length > 0);
+            const updatedTags = (data.tags ?? '').split(',').map((tag) => tag.trim()).filter((tag) => tag.length > 0);
             updateCollection({ ...collection, ...data, tags: updatedTags });
             toast({ title: 'Success', description: 'Collection details updated.' });
         }

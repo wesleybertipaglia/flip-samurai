@@ -3,8 +3,8 @@ import React, { useState, useRef, useEffect } from 'react';
 export type SubMenuItem = {
     label: string,
     onClick: () => void,
-    isHighlighted?: boolean,
     isDisabled?: boolean,
+    isHighlighted?: boolean
 };
 
 export type MenuItem = {
@@ -13,6 +13,7 @@ export type MenuItem = {
     icon?: React.ReactNode,
     subMenuItems?: SubMenuItem[],
     isDisabled?: boolean,
+    isHighlighted?: boolean
 };
 
 type Props = {

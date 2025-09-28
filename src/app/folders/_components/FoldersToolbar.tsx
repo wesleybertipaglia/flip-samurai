@@ -3,7 +3,7 @@
 import { Button } from '@progress/kendo-react-buttons';
 import { SvgIcon } from '@progress/kendo-react-common';
 import { Input } from '@progress/kendo-react-inputs';
-import { searchIcon, xIcon } from '@progress/kendo-svg-icons';
+import { xIcon } from '@progress/kendo-svg-icons';
 
 type FoldersToolbarProps = {
     onCreateFolder: () => void;

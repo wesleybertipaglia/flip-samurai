@@ -84,7 +84,7 @@ export function FolderEditPageClient() {
 
   const handleSaveChanges = async (data: EditFolderSchema) => {
     if (folder && originalFolder) {
-      const updatedTags = data.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+      const updatedTags = (data.tags ?? '').split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
       const updatedFolder = { ...folder, name: data.name, description: data.description, tags: updatedTags };
       updateFolder(updatedFolder);
 
