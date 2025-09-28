@@ -7,6 +7,7 @@ import { getItem, setItem, initializeItem } from '@/lib/storage';
 import type { ICollectionsService } from './collections.interface';
 
 const COLLECTIONS_STORAGE_KEY = 'collections';
+const API_BASE_URL = 'https://flip-samurai-api.onrender.com/api/v1';
 
 class CollectionsMockService implements ICollectionsService {
   constructor() {
@@ -139,6 +140,48 @@ class CollectionsMockService implements ICollectionsService {
     });
     this.saveCollectionsToStorage(collections);
     return Promise.resolve(updatedCollection);
+  }
+
+  async generateCollectionFromAI(data: {
+    idea: string;
+    apiKey: string;
+  }): Promise<Collection> {
+    const response = await fetch(`${API_BASE_URL}/ai/collection`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        idea: data.idea,
+        apiKey: data.apiKey,
+      }),
+    });
+
+    if (!response.ok) {
+      let errorMessage = `API call failed with status: ${response.status}`;
+      try {
+        const errorData = await response.json();
+        if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      } catch (e) {
+      }
+      throw new Error(errorMessage);
+    }
+
+    const newCollection: Collection = await response.json();
+
+    const collections = this.loadCollectionsFromStorage();
+    const collectionWithId: Collection = {
+      ...newCollection,
+      id: tinid(),
+      source: 'ai-generated'
+    };
+
+    const newCollections = [...collections, collectionWithId];
+    this.saveCollectionsToStorage(newCollections);
+
+    return collectionWithId;
   }
 }
 

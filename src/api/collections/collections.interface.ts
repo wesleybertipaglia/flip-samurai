@@ -19,4 +19,5 @@ export interface ICollectionsService {
   exportCollectionById(collectionId: string): Promise<void>;
   addCollectionToFolder(collectionId: string, folderId: string | null): Promise<void>;
   toggleFavorite(collectionId: string): Promise<Collection | undefined>;
+  generateCollectionFromAI(data: { idea: string; apiKey: string; }): Promise<Collection>;
 }

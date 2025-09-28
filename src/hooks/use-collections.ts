@@ -149,6 +149,12 @@ export function useCollections() {
     await loadCollections();
   }, [loadCollections]);
 
+  const generateCollectionFromAI = useCallback(async (idea: string, apiKey: string) => {
+    const newCollection = await collectionsService.generateCollectionFromAI({ idea, apiKey });
+    await loadCollections();
+    return newCollection.id;
+  }, [loadCollections]);
+
   return {
     collections,
     isInitialized,
@@ -163,6 +169,7 @@ export function useCollections() {
     finishStudySession,
     cardsToReview,
     addCollectionToFolder,
-    toggleFavorite
+    toggleFavorite,
+    generateCollectionFromAI
   };
 }

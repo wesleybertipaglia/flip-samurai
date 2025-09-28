@@ -18,7 +18,7 @@ const GEMINI_API_KEY_STORAGE = 'gemini_api_key';
 export function CollectionsPageClient() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { collections, isInitialized, addCollection, importCollections, exportCollectionById, deleteCollection, cardsToReview, addCollectionToFolder, toggleFavorite, createAndAddCollectionWithAi } = useCollections();
+  const { collections, isInitialized, addCollection, importCollections, exportCollectionById, deleteCollection, cardsToReview, addCollectionToFolder, toggleFavorite, generateCollectionFromAI } = useCollections();
   const { folders, assignCollectionToFolder, unassignCollectionFromFolder } = useFolders();
   const { toast } = useToast();
 
@@ -199,13 +199,15 @@ export function CollectionsPageClient() {
   const handleGenerateWithAi = async (data: AiCreateCollectionSchema) => {
     setIsAiLoading(true);
     try {
-      await createAndAddCollectionWithAi({ idea: data.idea, apiKey });
+      await generateCollectionFromAI(data.idea, apiKey);
+
       toast({ title: 'AI Collection Created!', description: 'Your new collection is ready.' });
       setIsAiCreateDialogOpen(false);
       aiCreateForm.reset();
     } catch (error) {
       console.error("AI generation failed:", error);
-      toast({ variant: 'error', title: 'AI Generation Failed', description: String(error) });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      toast({ variant: 'error', title: 'AI Generation Failed', description: errorMessage });
     } finally {
       setIsAiLoading(false);
     }
