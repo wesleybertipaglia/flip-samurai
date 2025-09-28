@@ -1,0 +1,58 @@
+@use 'bootstrap/scss/bootstrap' as *;
+@use '@progress/kendo-theme-bootstrap/scss/all.scss' as *;
+
+.dropdown-wrapper {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 200px;
+    padding: 8px 0;
+    margin-top: 5px;
+}
+
+.dropdown-item {
+    display: d-flex;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f5f5f5;
+    color: #007bff;
+}
+
+.dropdown-item-icon {
+    margin-right: 10px;
+}
+
+.dropdown-wrapper button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+}
+
+.bg-outline {
+    background-color: transparent !important;
+}
+
+.bg-outline:hover {
+    background-color: #f1f1f1 !important;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}

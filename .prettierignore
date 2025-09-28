@@ -1,0 +1,10 @@
+# Ignore artifacts:
+dist
+node_modules
+coverage
+
+# Ignore configs:
+.eslintrc.cjs
+
+# Ignore misc:
+package-lock.json
